@@ -28,6 +28,16 @@ class UserServices {
     }
   }
 
+  async getAllUsers() {
+    try {
+      const getAllUsers = await this.userRepository.getUsers();
+      return getAllUsers;
+    } catch (error) {
+      console.error("Something went wrong in the Service layer", error);
+      throw { error };
+    }
+  }
+
   async signIn(Email, plainPassword) {
     try {
       // step 1-> Fetch the user to using email

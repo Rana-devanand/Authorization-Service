@@ -21,6 +21,15 @@ class UserRepository {
       throw { error };
     }
   }
+  async getUsers() {
+    try {
+      const allUsers = await user.findAll();
+      return allUsers;
+    } catch (error) {
+      console.error("Something went wrong in repository layer", error);
+      throw { error };
+    }
+  }
 
   async getByEmail(Email) {
     try {
@@ -29,7 +38,6 @@ class UserRepository {
           Email: Email,
         },
       });
-      console.log(getUser);
       return getUser;
     } catch (error) {
       console.error("Something went wrong in repository layer", error);

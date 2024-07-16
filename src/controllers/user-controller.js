@@ -5,8 +5,8 @@ const userServices = new UserServices();
 const create = async (req, res) => {
   try {
     const user = await userServices.registerUser({
-      Email: req.body.email,
-      Password: req.body.password,
+      Email: req.body.Email,
+      Password: req.body.Password,
     });
     return res.status(201).json({
       data: user,
@@ -19,6 +19,25 @@ const create = async (req, res) => {
       data: {},
       success: false,
       message: "Something went wrong",
+      err: error,
+    });
+  }
+};
+
+const allUsers = async (req, res) => {
+  try {
+    const users = await userServices.getAllUsers();
+    return res.status(200).json({
+      data: users,
+      message: "Successfully fetched all users",
+      success: true,
+      err: {},
+    });
+  } catch (error) {
+    return res.status(500).json({
+      data: {},
+      message: "Something went wrong",
+      success: false,
       err: error,
     });
   }
@@ -49,4 +68,5 @@ const signIn = async (req, res) => {
 module.exports = {
   create,
   signIn,
+  allUsers,
 };
