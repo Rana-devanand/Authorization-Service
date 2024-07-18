@@ -24,6 +24,25 @@ const create = async (req, res) => {
   }
 };
 
+const destroy = async (req, res) => {
+  try {
+    const response = await userServices.deleteUser(req.params.id);
+    return res.status(200).json({
+      data: response,
+      success: true,
+      message: "Successfully deleted the user",
+      err: {},
+    });
+  } catch (error) {
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "Something went wrong ",
+      err: error,
+    });
+  }
+};
+
 const allUsers = async (req, res) => {
   try {
     const users = await userServices.getAllUsers();
@@ -65,8 +84,30 @@ const signIn = async (req, res) => {
   }
 };
 
+const isAuthenticated = async (req, res) => {
+  try {
+    const token = req.headers["x-access-token"];
+    const response = await userServices.isAuthenticate(token);
+    return res.status(200).json({
+      data: response,
+      success: true,
+      message: "Authenticated User",
+      err: {},
+    });
+  } catch (error) {
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "Something went wrong",
+      err: error,
+    });
+  }
+};
+
 module.exports = {
   create,
   signIn,
   allUsers,
+  destroy,
+  isAuthenticated,
 };

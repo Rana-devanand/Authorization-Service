@@ -4,7 +4,7 @@ const apiRoutes = require("./routers/index");
 const bodyParser = require("body-parser");
 const app = express();
 
-// const UserServices = require("./services/user-service");
+// const userRepository = require("./repository/user-repository");
 
 const setupAndStartServer = () => {
   app.use(bodyParser.json());

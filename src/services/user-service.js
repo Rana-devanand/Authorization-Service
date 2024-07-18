@@ -18,10 +18,10 @@ class UserServices {
     }
   }
 
-  async deleteUser(userId) {
+  async deleteUser(id) {
     try {
-      const deleteUser = await this.UserRepository.destroy(userId);
-      return deleteUser;
+      const User = await this.userRepository.destroy(id);
+      return User;
     } catch (error) {
       console.error("Something went wrong in the Service layer", error);
       throw { error };
@@ -57,6 +57,23 @@ class UserServices {
       // step -> if password match then create the token and send to the user.
       const newJWT = this.createToken({ Email: user.Email, id: user.id });
       return newJWT;
+    } catch (error) {
+      console.error("Something went wrong in the Service layer", error);
+      throw { error };
+    }
+  }
+
+  async isAuthenticate(token) {
+    try {
+      const response = this.verifyToken(token);
+      if (!response) {
+        throw { error: "Invalid token" };
+      }
+      const user = this.userRepository.getById(response.id);
+      if (!user) {
+        throw { error: "No user with the corresponding token exists" };
+      }
+      return user.id;
     } catch (error) {
       console.error("Something went wrong in the Service layer", error);
       throw { error };
