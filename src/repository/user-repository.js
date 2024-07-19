@@ -1,4 +1,5 @@
 const { user, role } = require("../models/index");
+const ValidationError = require("../utils/Validation-error");
 
 class UserRepository {
   async createUser(data) {
@@ -6,8 +7,9 @@ class UserRepository {
       const userInstance = await user.create(data);
       return userInstance;
     } catch (error) {
-      console.error("Something went wrong in repository layer", error);
-      throw { error };
+      if (error.name == "SequelizeValidationError") {
+        throw new ValidationError(error);
+      }
     }
   }
 
