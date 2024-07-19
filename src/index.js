@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const app = express();
 
 // const userRepository = require("./repository/user-repository");
-
+const db = require("./models/index");
 const setupAndStartServer = () => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -14,6 +14,9 @@ const setupAndStartServer = () => {
 
   app.listen(PORT, async () => {
     console.log(`Server started on port ${PORT}`);
+    if (process.env.DB_SYNC) {
+      db.sequelize.sync({ alter: true });
+    }
   });
 };
 
