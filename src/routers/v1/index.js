@@ -16,6 +16,12 @@ router.post(
   userController.signIn
 );
 
+router.get(
+  "/isAdmin",
+  AuthRequestValidator.isAdminUserAuth,
+  userController.isAdmin
+);
+
 router.delete("/user/:id", userController.destroy);
 
 router.get("/isAuthenticated", userController.isAuthenticated);

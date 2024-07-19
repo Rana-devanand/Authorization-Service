@@ -21,8 +21,8 @@ const setupAndStartServer = () => {
     //   db.sequelize.sync({ alter: true });
     // }
 
-    const u1 = await user.findByPk(6);
-    const r1 = await role.findByPk(1);
+    // const u1 = await user.findByPk(6);
+    // const r1 = await role.findByPk(1);
     // u1.addRole(r1);
     // const response = await r1.getUsers();
     // const checkRoles = await u1.hasRole(r1);

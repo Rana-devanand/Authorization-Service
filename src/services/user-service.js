@@ -106,6 +106,16 @@ class UserServices {
       throw { error };
     }
   }
+
+  isAdmin(userId) {
+    try {
+      const user = this.userRepository.isAdmin(userId);
+      return user;
+    } catch (error) {
+      console.error("Something is wrong with password authentication", error);
+      throw { error };
+    }
+  }
 }
 
 module.exports = UserServices;
