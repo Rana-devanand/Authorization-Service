@@ -76,7 +76,8 @@ const signIn = async (req, res) => {
       err: {},
     });
   } catch (error) {
-    return res.status(500).json({
+    console.log(error);
+    return res.status(error.statusCode).json({
       data: {},
       success: false,
       message: "Something went wrong",
